@@ -1,4 +1,8 @@
+package controllers;
 import java.util.ArrayList;
+
+import models.Role;
+import models.User;
 
 public class UserController {
     private ArrayList<User> users = new ArrayList<User>();

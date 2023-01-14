@@ -1,8 +1,15 @@
+package controllers;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import models.Author;
+import models.Book;
+import models.Category;
+import models.Role;
+import models.User;
+
 public class BookController {
-    ArrayList<Book> books = new ArrayList<Book>();
+    public ArrayList<Book> books = new ArrayList<Book>();
 
     public Book findABookById(UUID id, String title){
         Book foundedBook = null;

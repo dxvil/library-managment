@@ -1,5 +1,10 @@
+package controllers;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import models.Author;
+import models.Role;
+import models.User;
 
 public class AuthorController {
     static ArrayList<Author> authors = new ArrayList<Author>();

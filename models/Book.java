@@ -1,13 +1,14 @@
+package models;
 import java.util.UUID;
 
 public class Book {
-    UUID id;
-    String title;
+    public UUID id;
+    public String title;
     String description;
     Category category;
     Author author;
 
-    Book(String title, String description, Category category, Author author){
+    public Book(String title, String description, Category category, Author author){
         this.title = title;
         this.description = description;
         this.category = category;

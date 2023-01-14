@@ -1,11 +1,12 @@
+package models;
 import java.util.UUID;
 
 public class User {
-    String name;
+    public String name;
     UUID id;
-    Role role;
+    public Role role;
 
-    User(String name, Role role) {
+    public User(String name, Role role) {
         this.name = name;
         this.role = role;
         Identifier identifier = new Identifier();

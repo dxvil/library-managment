@@ -1,8 +1,13 @@
+package controllers;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import models.Category;
+import models.Role;
+import models.User;
+
 public class CategoryController {
-    ArrayList<Category> categories = new ArrayList<Category>();
+    public ArrayList<Category> categories = new ArrayList<Category>();
     
     public Category findCategory(UUID id, String title) {
         Category foundedCategory = null;

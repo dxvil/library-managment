@@ -1,3 +1,9 @@
+import models.Author;
+import models.Category;
+import models.Library;
+import models.Role;
+import models.User;
+
 public class LibraryManagmentRunner extends Library {
     public static void main(String[] args) {
         Library library = new Library();

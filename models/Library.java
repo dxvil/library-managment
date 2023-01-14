@@ -1,7 +1,13 @@
+package models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+
+import controllers.AuthorController;
+import controllers.BookController;
+import controllers.CategoryController;
+import controllers.UserController;
 
 public class Library {
     public AuthorController authors= new AuthorController();
@@ -35,12 +41,24 @@ public class Library {
 
     public void backBook(User user, Book book) {
         if(user != null && book != null) { 
+            Checkout foundedCheckout = findCheckoutForBook(user, book);
 
+            borrowedBooks.remove(user.id);
+            
+            if(foundedCheckout != null) {
+                foundedCheckout.changeStatus(true);
+            }
         }
         System.out.println("Please, specify a user and a book to back a book to the library.");
     }
 
-    public void findCheckoutForBook() {
-        
+    public Checkout findCheckoutForBook(User user, Book book) {
+        Checkout foundedCheckout = null;
+        for(Checkout checkout:checkoutJournal) {
+            if(user.id == checkout.userId && book.id == checkout.bookId) {
+                foundedCheckout = checkout;
+            }
+        }
+        return foundedCheckout;
     }
 }
