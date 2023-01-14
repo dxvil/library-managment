@@ -1,11 +1,14 @@
 public class LibraryManagmentRunner extends Library {
     public static void main(String[] args) {
         Library library = new Library();
-        User user = new User("admin", Role.ADMIN);
-        Author rouling = new Author("Joahn Rouling");
+        User user = library.users.createUser("admin", Role.ADMIN);
+        String adventuresCategoryTitle = "Adventures";
+        library.categories.createCategory(user, adventuresCategoryTitle);
         
-        library.createCategory(user, "Adventures");
-        library.createBook(user, "Harry Potter 1", "A book about wizard", adventuresCategory, rouling);
+        Category adventuresCategory = library.categories.findCategory(null, adventuresCategoryTitle);
+        Author rouling = library.authors.findAuthor(null, "Rouling");
+
+        library.books.createBook(user, "Harry Potter 1", "A book about wizard", adventuresCategory, rouling);
         library.welcome();
     }
 }
