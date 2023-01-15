@@ -50,7 +50,7 @@ class AuthorControllerTests {
     @Order(1)
     @DisplayName("Add a new author with admin rights")
     void createAuthorAsAdmin() {
-        authorController.createAuthor(admin, authorName);
+        authorController.create(admin, authorName);
 
         assertEquals(1, authors.size());
     }
@@ -59,7 +59,7 @@ class AuthorControllerTests {
     @Order(2)
     @DisplayName("Add a new author with an user rights")
     void createAuthorAsUser() {
-        authorController.createAuthor(user, "Joan Roaling");
+        authorController.create(user, "Joan Roaling");
 
         assertEquals("You have no rights to create a new author.", 
         outputStreamCaptor.toString().trim());
@@ -73,9 +73,9 @@ class AuthorControllerTests {
         createAuthorAsAdmin();
         assertEquals(1, authors.size());
         
-        Author foundedAuthor = authorController.findAuthor(null, authorName);
+        Author foundedAuthor = authorController.find(null, authorName);
         String newName = "Angelina Stefanik";
-        authorController.editAuthor(admin, foundedAuthor.id, newName);
+        authorController.edit(admin, foundedAuthor.id, newName);
         
         
         assertFalse(foundedAuthor == null);
@@ -88,10 +88,10 @@ class AuthorControllerTests {
     void editAuthorAsUser() {
         createAuthorAsAdmin();
 
-        Author foundedAuthor = authorController.findAuthor(null, authorName);
+        Author foundedAuthor = authorController.find(null, authorName);
         String newName = "Angelina Stefanik";
 
-        authorController.editAuthor(user, foundedAuthor.id, newName);
+        authorController.edit(user, foundedAuthor.id, newName);
 
         assertEquals(1, authors.size());
         assertFalse(foundedAuthor == null);
@@ -99,7 +99,7 @@ class AuthorControllerTests {
         assertEquals("You have no rights to edit an author.", 
         outputStreamCaptor.toString().trim());
 
-        authorController.deleteAuthor(admin, authorName);
+        authorController.delete(admin, foundedAuthor.id, authorName);
     }
 
     @Test
@@ -108,7 +108,7 @@ class AuthorControllerTests {
     void findAuthor() {
         createAuthorAsAdmin();
         
-        Author foundedAuthor = authorController.findAuthor(null, authorName);
+        Author foundedAuthor = authorController.find(null, authorName);
 
         assertEquals(authorName, foundedAuthor.name);
     }
@@ -117,7 +117,7 @@ class AuthorControllerTests {
     @Order(6)
     @DisplayName("Find an non-exist author")
     void findNonExistAuthor() {
-        Author foundedAuthor = authorController.findAuthor(null, "Some name");
+        Author foundedAuthor = authorController.find(null, "Some name");
         
         assertTrue(foundedAuthor == null);
     }
@@ -128,20 +128,27 @@ class AuthorControllerTests {
     @Order(7)
     @DisplayName("Delete author with user rights")
     void deleteAuthorAsUser() {
-        authorController.deleteAuthor(user, authorName);
+        createAuthorAsAdmin();
+
+        Author foundedAuthor = authorController.find(null, authorName);
+
+        authorController.delete(user, foundedAuthor.id, foundedAuthor.name);
 
         assertEquals("You have no rights to delete an author.", 
         outputStreamCaptor.toString().trim());
 
-        assertEquals(0, authors.size());
+        assertEquals(1, authors.size());
     }
 
     @Test
     @Order(8)
     @DisplayName("Delete author with admin rights")
     void deleteAuthorAsAdmin() {
+        createAuthorAsAdmin();
 
-        authorController.deleteAuthor(admin, authorName);
+        Author foundedAuthor = authorController.find(null, authorName);
+
+        authorController.delete(admin, foundedAuthor.id, "");
        
         assertEquals(0, authors.size());
     }

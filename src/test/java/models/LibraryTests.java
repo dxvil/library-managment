@@ -53,17 +53,17 @@ public class LibraryTests {
     }
 
     static void setupLibrary() {
-        User admin = userController.createUser("admin", Role.ADMIN);
-        User user = userController.createUser("user", Role.USER);
+        User admin = userController.create("admin", Role.ADMIN);
+        User user = userController.create("user", Role.USER);
 
-        categoryController.createCategory(admin, "Adventures");
-        Category category = categoryController.findCategory(null, "Adventures");
+        categoryController.create(admin, "Adventures");
+        Category category = categoryController.find(null, "Adventures");
 
-        authorController.createAuthor(admin, "Tolkien");
+        authorController.create(admin, "Tolkien");
 
-        Author author = authorController.findAuthor(null, "Tolkien");
+        Author author = authorController.find(null, "Tolkien");
 
-        bookController.createBook(
+        bookController.create(
         admin, bookTitle, "Adventure book", 
         category, author);
 
@@ -74,8 +74,8 @@ public class LibraryTests {
     @Order(1)
     @DisplayName("Borrow a book from library")
     void borrowBook() {
-        User user = userController.findUser("user");
-        Book book = bookController.findABook(null, bookTitle);
+        User user = userController.find("user");
+        Book book = bookController.find(null, bookTitle);
 
 
         library.borrowBook(user, book);
@@ -88,7 +88,7 @@ public class LibraryTests {
     @Order(2)
     @DisplayName("Borrow a book from library with some empty values")
     void borrowBookWithNonSpecifiedValues() {
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
         library.borrowBook(null, book);
 
@@ -105,8 +105,8 @@ public class LibraryTests {
         borrowBook();
         assertEquals(1, borrowedBooks.size());
 
-        User user = userController.findUser("user");
-        Book book = bookController.findABook(null, bookTitle);
+        User user = userController.find("user");
+        Book book = bookController.find(null, bookTitle);
 
         library.backBook(user, book);
 
@@ -121,7 +121,7 @@ public class LibraryTests {
         assertEquals(1, borrowedBooks.size());
 
         
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
         library.backBook(null, book);
 

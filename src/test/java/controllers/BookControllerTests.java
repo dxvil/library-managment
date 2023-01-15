@@ -57,7 +57,7 @@ public class BookControllerTests {
     @Order(1)
     @DisplayName("Add a new book with admin rights")
     void createBookAsAdmin() {
-        bookController.createBook(
+        bookController.create(
             admin, 
             bookTitle, 
             bookDescr, 
@@ -73,7 +73,7 @@ public class BookControllerTests {
     void getABook() {
         createBookAsAdmin();
 
-        Book book = bookController.getABook(null, bookTitle);
+        Book book = bookController.getBook(null, bookTitle);
         assertEquals(1, books.size());
         assertTrue(book != null);
     }
@@ -83,7 +83,7 @@ public class BookControllerTests {
     void findNewBook() {
         createBookAsAdmin();
 
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
         assertEquals(1, books.size());
         assertTrue(book != null);
@@ -93,7 +93,7 @@ public class BookControllerTests {
     @Order(4)
     @DisplayName("Find an non-exist book")
     void findNonExistBook() {
-        Book foundedBook = bookController.findABook(UUID.randomUUID(), "");
+        Book foundedBook = bookController.find(UUID.randomUUID(), "");
         
         assertTrue(foundedBook == null);
     }
@@ -102,7 +102,7 @@ public class BookControllerTests {
     @Order(5)
     @DisplayName("Add a new book with a user rights")
     void createBookAsUser() {
-        bookController.createBook(
+        bookController.create(
             user, 
             bookTitle, 
             bookDescr, 
@@ -121,9 +121,9 @@ public class BookControllerTests {
     void editBookAsAdmin() {
         createBookAsAdmin();
 
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
-        bookController.updateBook(admin, book.id, "Lord Of Rings 2", bookDescr, adventuresCategory, tolkienAuthor);
+        bookController.edit(admin, book.id, "Lord Of Rings 2", bookDescr, adventuresCategory, tolkienAuthor);
         
         assertFalse(book == null);
         assertNotEquals(bookTitle, book.title);
@@ -135,9 +135,9 @@ public class BookControllerTests {
     void editBookAsUser() {
         createBookAsAdmin();
 
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
-        bookController.updateBook(user, book.id, "Lord Of Rings 2", bookDescr, adventuresCategory, tolkienAuthor);
+        bookController.edit(user, book.id, "Lord Of Rings 2", bookDescr, adventuresCategory, tolkienAuthor);
         
         assertEquals(bookTitle, book.title);
 
@@ -151,9 +151,9 @@ public class BookControllerTests {
     void deleteBookAsUser() {
         createBookAsAdmin();
 
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
-        bookController.deleteBook(user, book.id);
+        bookController.delete(user, book.id, book.title);
 
         assertEquals("You have no rights to delete a book.", 
         outputStreamCaptor.toString().trim());
@@ -167,9 +167,9 @@ public class BookControllerTests {
     void deleteBookAsAdmin() {
         createBookAsAdmin();
         
-        Book book = bookController.findABook(null, bookTitle);
+        Book book = bookController.find(null, bookTitle);
 
-        bookController.deleteBook(admin, book.id);
+        bookController.delete(admin, book.id, book.title);
        
         assertEquals(0, books.size());
     }

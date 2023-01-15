@@ -7,9 +7,9 @@ import models.User;
 public class UserController {
     private ArrayList<User> users = new ArrayList<User>();
 
-    public User createUser(String name, Role role) {
+    public User create(String name, Role role) {
         User user = null;
-        User userExist = findUser(name);
+        User userExist = find(name);
 
         if(userExist != null) {
             System.out.println("User with this name is already exist");
@@ -22,7 +22,7 @@ public class UserController {
         return user;
     }
 
-    public User findUser(String name) {
+    public User find(String name) {
         User foundedUser = null;
         for(User user:users) {
             if(user.name == name) {

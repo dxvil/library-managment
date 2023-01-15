@@ -2,16 +2,17 @@ package controllers;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import interfaces.BookInterface;
 import models.Author;
 import models.Book;
 import models.Category;
 import models.Role;
 import models.User;
 
-public class BookController {
+public class BookController implements BookInterface<Book> {
     public ArrayList<Book> books = new ArrayList<Book>();
 
-    public Book findABook(UUID id, String title){
+    public Book find(UUID id, String title){
         Book foundedBook = null;
         for(Book book:books){
             if(id != null && book.id == id) {
@@ -28,9 +29,9 @@ public class BookController {
         return foundedBook;
     }
     
-    public void updateBook(User user, UUID id, String title, String description, Category categoryId, Author author) {
+    public void edit(User user, UUID id, String title, String description, Category categoryId, Author author) {
         if(user != null && user.role == Role.ADMIN) {
-             Book book = findABook(id, "");
+             Book book = find(id, "");
              if(book != null) {
                  book.updateBook(id, title, description, categoryId, author);
                  return;
@@ -40,9 +41,9 @@ public class BookController {
         System.out.println("You have no rights to update a book.");
      }
  
-     public void deleteBook(User user, UUID id) {
+     public void delete(User user, UUID id, String title) {
          if(user != null && user.role == Role.ADMIN) {
-             Book book = findABook(id, "");
+             Book book = find(id, title);
              if(book != null) {
                  books.remove(book);
                  return;
@@ -52,7 +53,7 @@ public class BookController {
          System.out.println("You have no rights to delete a book.");
      }
  
-     public void createBook(User user, String title, String description, Category categoryId, Author author) {
+     public void create(User user, String title, String description, Category categoryId, Author author) {
          if(user != null &&  user.role == Role.ADMIN) {
              Book book = new Book(title, description, categoryId, author);
              books.add(book);
@@ -64,11 +65,11 @@ public class BookController {
         
      }
  
-     public Book getABook(UUID id, String title) {
+     public Book getBook(UUID id, String title) {
          if(id != null && (title == null || title == "")) {
-             return findABook(id, "");
+             return find(id, "");
          }
  
-         return findABook(null, title);
+         return find(null, title);
      }
 }

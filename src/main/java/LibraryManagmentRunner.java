@@ -7,22 +7,22 @@ import models.User;
 public class LibraryManagmentRunner extends Library {
     public static void main(String[] args) {
         Library library = new Library();
-        User admin = library.users.createUser("admin", Role.ADMIN);
-        User user = library.users.createUser("user", Role.USER);
+        User admin = library.users.create("admin", Role.ADMIN);
+        User user = library.users.create("user", Role.USER);
 
         String adventuresCategoryTitle = "Adventures";
         String Roaling = "Joahn Roaling";
         String bookTitle = "Harry Potter 1";
         String bookDescr = "A book about wizard";
 
-        library.categories.createCategory(admin, adventuresCategoryTitle);
+        library.categories.create(admin, adventuresCategoryTitle);
 
-        Category adventuresCategory = library.categories.findCategory(null, adventuresCategoryTitle);
-        library.authors.createAuthor(admin, adventuresCategoryTitle);
+        Category adventuresCategory = library.categories.find(null, adventuresCategoryTitle);
+        library.authors.create(admin, adventuresCategoryTitle);
 
-        Author author = library.authors.findAuthor(null, Roaling);
+        Author author = library.authors.find(null, Roaling);
 
-        library.books.createBook(admin, bookTitle, bookDescr, adventuresCategory, author);
+        library.books.create(admin, bookTitle, bookDescr, adventuresCategory, author);
 
         library.welcome();
     }
