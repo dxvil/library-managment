@@ -18,8 +18,8 @@ public class Library {
     ArrayList<Category> categoriesList = categories.categories;
     ArrayList<Book> booksList = books.books;
 
-    HashMap<UUID, Checkout> borrowedBooks = new HashMap<UUID, Checkout>();
-    ArrayList<Checkout> checkoutJournal = new ArrayList<Checkout>();
+    protected HashMap<UUID, Checkout> borrowedBooks = new HashMap<UUID, Checkout>();
+    protected ArrayList<Checkout> checkoutJournal = new ArrayList<Checkout>();
 
     public void welcome() {
         System.out.println("Welcome to the library");
@@ -52,7 +52,7 @@ public class Library {
         System.out.println("Please, specify a user and a book to back a book to the library.");
     }
 
-    public Checkout findCheckoutForBook(User user, Book book) {
+    private Checkout findCheckoutForBook(User user, Book book) {
         Checkout foundedCheckout = null;
         for(Checkout checkout:checkoutJournal) {
             if(user.id == checkout.userId && book.id == checkout.bookId) {
