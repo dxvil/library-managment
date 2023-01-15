@@ -3,7 +3,7 @@ import java.util.UUID;
 
 public class User {
     public String name;
-    UUID id;
+    public UUID id;
     public Role role;
 
     public User(String name, Role role) {

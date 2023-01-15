@@ -6,14 +6,17 @@ import models.User;
 
 public class UserController {
     private ArrayList<User> users = new ArrayList<User>();
+
     public User createUser(String name, Role role) {
         User user = null;
-        if(findUser(name) != null) {
+        User userExist = findUser(name);
+
+        if(userExist != null) {
             System.out.println("User with this name is already exist");
-            return user;
+            return null;
         }
 
-        user = new User("admin", Role.ADMIN);
+        user = new User(name, role);
         users.add(user);
 
         return user;
