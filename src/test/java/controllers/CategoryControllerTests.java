@@ -34,11 +34,16 @@ public class CategoryControllerTests {
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
+        clearList();
     }
 
     @AfterEach
     public void tearDown() {
         System.setOut(standardOut);
+    }
+
+    void clearList() {
+        categories.clear();
     }
 
     @Test

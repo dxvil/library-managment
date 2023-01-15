@@ -34,6 +34,7 @@ class AuthorControllerTests {
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
+        clearList();
     }
 
     @AfterEach
@@ -41,6 +42,9 @@ class AuthorControllerTests {
         System.setOut(standardOut);
     }
 
+    void clearList() {
+        authors.clear();
+    }
 
     @Test
     @Order(1)
@@ -55,7 +59,6 @@ class AuthorControllerTests {
     @Order(2)
     @DisplayName("Add a new author with an user rights")
     void createAuthorAsUser() {
-        
         authorController.createAuthor(user, "Joan Roaling");
 
         assertEquals("You have no rights to create a new author.", 
@@ -83,6 +86,8 @@ class AuthorControllerTests {
     @Order(4)
     @DisplayName("Edit author with user rights")
     void editAuthorAsUser() {
+        createAuthorAsAdmin();
+
         Author foundedAuthor = authorController.findAuthor(null, authorName);
         String newName = "Angelina Stefanik";
 
@@ -101,6 +106,8 @@ class AuthorControllerTests {
     @Order(5)
     @DisplayName("Find an author")
     void findAuthor() {
+        createAuthorAsAdmin();
+        
         Author foundedAuthor = authorController.findAuthor(null, authorName);
 
         assertEquals(authorName, foundedAuthor.name);
@@ -126,7 +133,7 @@ class AuthorControllerTests {
         assertEquals("You have no rights to delete an author.", 
         outputStreamCaptor.toString().trim());
 
-        assertEquals(1, authors.size());
+        assertEquals(0, authors.size());
     }
 
     @Test
