@@ -20,18 +20,23 @@ import models.Book;
 import models.Category;
 import models.Role;
 import models.User;
+
 public class BookControllerTests {
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
     Author tolkienAuthor = new Author("Tolkien");
     Category adventuresCategory = new Category("Adventures");
     String bookTitle = "Lord of Rings";
     String bookDescr = "Adventures book";
+
     BookController bookController = new BookController();
     ArrayList<Book> books = bookController.books;
+
     User admin = new User("alex", Role.ADMIN);
     User user = new User("morro", Role.USER);
     
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    
     
     @BeforeEach
     public void setUp() {
@@ -82,7 +87,7 @@ public class BookControllerTests {
     @Test
     @Order(4)
     @DisplayName("Find an non-exist book")
-    void findNonExistAuthor() {
+    void findNonExistBook() {
         Book foundedBook = bookController.findABook(UUID.randomUUID(), "");
         
         assertTrue(foundedBook == null);
@@ -108,7 +113,7 @@ public class BookControllerTests {
 
     @Test
     @DisplayName("Edit book with admin rights")
-    void editBookWithAdmin() {
+    void editBookAsAdmin() {
         createBookAsAdmin();
 
         Book book = bookController.findABook(null, bookTitle);
@@ -122,7 +127,7 @@ public class BookControllerTests {
     @Test
     @Order(6)
     @DisplayName("Edit book with user rights")
-    void editAuthorWithUser() {
+    void editBookAsUser() {
         createBookAsAdmin();
 
         Book book = bookController.findABook(null, bookTitle);
@@ -137,8 +142,8 @@ public class BookControllerTests {
 
     @Test
     @Order(7)
-    @DisplayName("Delete author with user rights")
-    void deleteAuthorWithUser() {
+    @DisplayName("Delete book with user rights")
+    void deleteBookAsUser() {
         createBookAsAdmin();
 
         Book book = bookController.findABook(null, bookTitle);
@@ -153,8 +158,8 @@ public class BookControllerTests {
 
     @Test
     @Order(8)
-    @DisplayName("Delete author with admin rights")
-    void deleteAuthorWithAdmin() {
+    @DisplayName("Delete book with admin rights")
+    void deleteBookAsAdmin() {
         createBookAsAdmin();
         
         Book book = bookController.findABook(null, bookTitle);

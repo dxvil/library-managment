@@ -19,14 +19,17 @@ import models.Role;
 import models.User;
 
 class AuthorControllerTests {
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
     String authorName = "Joan Roaling";
     AuthorController authorController = new AuthorController();
     ArrayList<Author> authors = AuthorController.authors;
+    
     User admin = new User("alex", Role.ADMIN);
     User user = new User("morro", Role.USER);
     
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    
     
     @BeforeEach
     public void setUp() {
@@ -63,7 +66,7 @@ class AuthorControllerTests {
     @Test
     @Order(3)
     @DisplayName("Edit author with admin rights")
-    void editAuthorWithAdmin() {
+    void editAuthorAsAdmin() {
         createAuthorAsAdmin();
         assertEquals(1, authors.size());
         
@@ -79,7 +82,7 @@ class AuthorControllerTests {
     @Test
     @Order(4)
     @DisplayName("Edit author with user rights")
-    void editAuthorWithUser() {
+    void editAuthorAsUser() {
         Author foundedAuthor = authorController.findAuthor(null, authorName);
         String newName = "Angelina Stefanik";
 
@@ -117,7 +120,7 @@ class AuthorControllerTests {
     @Test
     @Order(7)
     @DisplayName("Delete author with user rights")
-    void deleteAuthorWithUser() {
+    void deleteAuthorAsUser() {
         authorController.deleteAuthor(user, authorName);
 
         assertEquals("You have no rights to delete an author.", 
@@ -129,7 +132,7 @@ class AuthorControllerTests {
     @Test
     @Order(8)
     @DisplayName("Delete author with admin rights")
-    void deleteAuthorWithAdmin() {
+    void deleteAuthorAsAdmin() {
 
         authorController.deleteAuthor(admin, authorName);
        
