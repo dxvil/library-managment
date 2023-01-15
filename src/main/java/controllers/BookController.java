@@ -11,7 +11,7 @@ import models.User;
 public class BookController {
     public ArrayList<Book> books = new ArrayList<Book>();
 
-    public Book findABookById(UUID id, String title){
+    public Book findABook(UUID id, String title){
         Book foundedBook = null;
         for(Book book:books){
             if(id != null && book.id == id) {
@@ -30,7 +30,7 @@ public class BookController {
     
     public void updateBook(User user, UUID id, String title, String description, Category categoryId, Author author) {
         if(user != null && user.role == Role.ADMIN) {
-             Book book = findABookById(id, "");
+             Book book = findABook(id, "");
              if(book != null) {
                  book.updateBook(id, title, description, categoryId, author);
                  return;
@@ -42,7 +42,7 @@ public class BookController {
  
      public void deleteBook(User user, UUID id) {
          if(user != null && user.role == Role.ADMIN) {
-             Book book = findABookById(id, "");
+             Book book = findABook(id, "");
              if(book != null) {
                  books.remove(book);
                  return;
@@ -66,9 +66,9 @@ public class BookController {
  
      public Book getABook(UUID id, String title) {
          if(id != null && (title == null || title == "")) {
-             return findABookById(id, "");
+             return findABook(id, "");
          }
  
-         return findABookById(null, title);
+         return findABook(null, title);
      }
 }
