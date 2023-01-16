@@ -7,6 +7,14 @@ import models.User;
 public class UserController {
     private ArrayList<User> users = new ArrayList<User>();
 
+    private ArrayList<User> getUsers() {
+        return users;
+    }
+
+    private void setUsers(ArrayList<User> newUsersList) {
+        this.users = newUsersList;
+    }
+
     public User create(String name, Role role) {
         User user = null;
         User userExist = find(name);

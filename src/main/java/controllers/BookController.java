@@ -12,6 +12,14 @@ import models.User;
 public class BookController implements BookInterface<Book> {
     public ArrayList<Book> books = new ArrayList<Book>();
 
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(ArrayList<Book> newBooksList) {
+        this.books = newBooksList;
+    }
+
     public Book find(UUID id, String title){
         Book foundedBook = null;
         for(Book book:books){

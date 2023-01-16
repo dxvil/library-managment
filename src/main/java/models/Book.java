@@ -13,25 +13,64 @@ public class Book {
         this.description = description;
         this.category = category;
         this.author = author;
-        
+        setUuid();
+    }
+
+    public UUID getUuid() {
+        return id;
+    }
+
+    private void setUuid() {
         Identifier identifier = new Identifier();
         this.id = identifier.generateUuid();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category newCategory) {
+        this.category = newCategory;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author newAuthor) {
+        this.author = newAuthor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String newDescription) {
+        this.title = newDescription;
     }
 
     public void updateBook(UUID id, String title, String description, Category category, Author author) {
         if(id != null) {
             if(title != null || title != "") {
-                this.title = title;
+                setTitle(title);
             }
             if(description != null || title != "") {
-                this.description = description;
+                setDescription(description);
             }
             if(category != null) {
-                this.category = category;
+                setCategory(category);
             }
             
             if(author != null) {
-                this.author = author;
+                setAuthor(author);
             }
         }
     }

@@ -26,7 +26,7 @@ public class CategoryControllerTests {
     String categoryTitle = "Adventures";
 
     CategoryController categoryController = new CategoryController();
-    ArrayList<Category> categories = categoryController.categories;
+    ArrayList<Category> categories = categoryController.getCategories();
 
     User admin = new User("alex", Role.ADMIN);
     User user = new User("morro", Role.USER);

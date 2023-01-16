@@ -15,14 +15,14 @@ public class LibraryManagmentRunner extends Library {
         String bookTitle = "Harry Potter 1";
         String bookDescr = "A book about wizard";
 
-        library.categories.create(admin, adventuresCategoryTitle);
+        library.getCategories().create(admin, adventuresCategoryTitle);
 
         Category adventuresCategory = library.categories.find(null, adventuresCategoryTitle);
         library.authors.create(admin, adventuresCategoryTitle);
 
-        Author author = library.authors.find(null, Roaling);
+        Author author = library.getAuthors().find(null, Roaling);
 
-        library.books.create(admin, bookTitle, bookDescr, adventuresCategory, author);
+        library.getBooks().create(admin, bookTitle, bookDescr, adventuresCategory, author);
 
         library.welcome();
     }

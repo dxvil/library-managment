@@ -11,6 +11,14 @@ import models.User;
 public class AuthorController implements AuthorInterface<Author> {
     static ArrayList<Author> authors = new ArrayList<Author>();
 
+    public ArrayList<Author> getAuthors() {
+        return authors;
+    }
+
+    public static void setAuthors(ArrayList<Author> newAuthorsList) {
+        authors = newAuthorsList;
+    } 
+
     public Author find(UUID id, String title) {
         Author foundedAuthor = null;
         for(Author author:authors) {

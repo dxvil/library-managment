@@ -10,7 +10,7 @@ import controllers.CategoryController;
 import controllers.UserController;
 
 public class Library {
-    public AuthorController authors= new AuthorController();
+    public AuthorController authors = new AuthorController();
     public UserController users = new UserController();
     public BookController books = new BookController();
     public CategoryController categories = new CategoryController();
@@ -20,6 +20,70 @@ public class Library {
 
     protected HashMap<UUID, Checkout> borrowedBooks = new HashMap<UUID, Checkout>();
     protected ArrayList<Checkout> checkoutJournal = new ArrayList<Checkout>();
+
+    public UserController getUsers() {
+        return users;
+    }
+
+    public BookController getBooks() {
+        return books;
+    }
+
+    public AuthorController getAuthors() {
+        return authors;
+    }
+
+    public CategoryController getCategories() {
+        return categories;
+    }
+
+    public void setUsers(UserController users) {
+        this.users = users;
+    }
+
+    public void setBooks(BookController books) {
+        this.books = books; 
+    }
+
+    public void setAuthors(AuthorController authors) {
+        this.authors = authors;
+    }
+
+    public void setCategories(CategoryController categories) {
+        this.categories = categories;
+    }
+
+    public ArrayList<Category> getCategoriesList() {
+        return categoriesList;
+    }
+
+    public void setCategoriesList(ArrayList<Category> categoriesList) {
+        this.categoriesList = categoriesList;
+    }
+
+    public ArrayList<Book> getBooksList() {
+        return booksList;
+    }
+
+    public void setBooksList(ArrayList<Book> booksList) {
+        this.booksList = booksList;
+    }
+
+    public HashMap<UUID, Checkout> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void setBorrowedBooks(HashMap<UUID, Checkout> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
+    }
+
+    public ArrayList<Checkout> getCheckoutJournal() {
+        return checkoutJournal;
+    }
+
+    public void setCheckoutJournal(ArrayList<Checkout> checkoutJournal) {
+        this.checkoutJournal = checkoutJournal;
+    }
 
     public void welcome() {
         System.out.println("Welcome to the library");

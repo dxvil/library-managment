@@ -7,13 +7,29 @@ public class Author {
 
     public Author(String name) {
         this.name = name;
+        setUuid();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
+
+    public UUID getUuid() {
+        return id;
+    }
+
+    private void setUuid() {
         Identifier identifier = new Identifier();
         this.id = identifier.generateUuid();
     }
 
     public void editAuthor(String name) {
         if(name != "") {
-            this.name = name;
+            setName(name);
         }
     }
 

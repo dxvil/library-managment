@@ -31,7 +31,7 @@ public class BookControllerTests {
     String bookDescr = "Adventures book";
 
     BookController bookController = new BookController();
-    ArrayList<Book> books = bookController.books;
+    ArrayList<Book> books = bookController.getBooks();
 
     User admin = new User("alex", Role.ADMIN);
     User user = new User("morro", Role.USER);

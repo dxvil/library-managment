@@ -24,7 +24,7 @@ class AuthorControllerTests {
 
     String authorName = "Joan Roaling";
     AuthorController authorController = new AuthorController();
-    ArrayList<Author> authors = AuthorController.authors;
+    ArrayList<Author> authors = authorController.getAuthors();
     
     User admin = new User("alex", Role.ADMIN);
     User user = new User("morro", Role.USER);

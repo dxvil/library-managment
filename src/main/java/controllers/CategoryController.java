@@ -10,6 +10,14 @@ import models.User;
 public class CategoryController implements LibraryInterface<Category> {
     public ArrayList<Category> categories = new ArrayList<Category>();
     
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> newCategoriesList) {
+        this.categories = newCategoriesList;
+    }
+
     public Category find(UUID id, String title) {
         Category foundedCategory = null;
             for(Category category:categories) {
