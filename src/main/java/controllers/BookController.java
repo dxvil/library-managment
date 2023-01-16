@@ -23,11 +23,14 @@ public class BookController implements BookInterface<Book> {
     public Book findOne(UUID id, String title){
         Book foundedBook = null;
         for(Book book:books){
-            if(id != null && book.id == id) {
+            boolean withTitle = title != null && title != "";
+            boolean withId = id != null;
+            
+            if(withId && book.id == id) {
                 foundedBook = book;
                 break;
             } else if(
-            (title != null || title != "") && 
+            (withTitle) && 
             (book.title == title || book.title.contains(title)
             )) {
                 foundedBook = book;
@@ -45,6 +48,7 @@ public class BookController implements BookInterface<Book> {
                  return;
              }
              System.out.println("Book is not found");
+             return;
         }
         System.out.println("You have no rights to update a book.");
      }
@@ -57,12 +61,14 @@ public class BookController implements BookInterface<Book> {
                  return;
              }
              System.out.println("Book is not found");
+             return;
          }
          System.out.println("You have no rights to delete a book.");
      }
  
      public void createBook(User user, String title, String description, Category categoryId, Author author) {
-         if(user != null &&  user.role == Role.ADMIN) {
+        boolean isAdmin = user != null &&  user.role == Role.ADMIN;
+        if(isAdmin) {
              Book book = new Book(title, description, categoryId, author);
              books.add(book);
  
@@ -74,7 +80,10 @@ public class BookController implements BookInterface<Book> {
      }
  
      public Book getBook(UUID id, String title) {
-         if(id != null && (title == null || title == "")) {
+        boolean withTitle = title == null || title == "";
+        boolean withId = id != null;
+        
+         if(withId && !withTitle) {
              return findOne(id, "");
          }
  

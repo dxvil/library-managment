@@ -21,10 +21,13 @@ public class CategoryController implements LibraryInterface<Category> {
     public Category findOne(UUID id, String title) {
         Category foundedCategory = null;
             for(Category category:categories) {
-                if(id != null && id == category.id) {
+                boolean withTitle = title != null && title != "";
+                boolean withId = id != null;
+
+                if(withId && id == category.id) {
                     foundedCategory = category;
                     break;
-                } else if(id == null && title != "" && title == category.name) {
+                } else if(withTitle && title == category.name) {
                     foundedCategory = category;
                     break;
                 }
@@ -53,6 +56,7 @@ public class CategoryController implements LibraryInterface<Category> {
                 return;
             }
             System.out.println("Category is not found");
+            return;
         }
         System.out.println("You have no rights to edit a category.");
     }
@@ -65,6 +69,7 @@ public class CategoryController implements LibraryInterface<Category> {
                 return;
             }
             System.out.println("Category is not found");
+            return;
         }
         System.out.println("You have no rights to delete a category.");
     }

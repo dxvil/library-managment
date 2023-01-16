@@ -75,6 +75,8 @@ class AuthorControllerTests {
         
         Author foundedAuthor = authorController.findOne(null, authorName);
         String newName = "Angelina Stefanik";
+        assertTrue(admin.role == Role.ADMIN);
+        
         authorController.editAuthor(admin, foundedAuthor.id, newName);
         
         

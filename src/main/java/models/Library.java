@@ -99,6 +99,7 @@ public class Library {
             
             checkoutJournal.add(checkout);
             borrowedBooks.put(user.id, checkout);
+            return;
         }
        System.out.println("Please, specify a user and a book to borrow from the library.");
     }
@@ -112,6 +113,7 @@ public class Library {
             if(foundedCheckout != null) {
                 foundedCheckout.changeCheckoutStatus(true);
             }
+            return;
         }
         System.out.println("Please, specify a user and a book to back a book to the library.");
     }

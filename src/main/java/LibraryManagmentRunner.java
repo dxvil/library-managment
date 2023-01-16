@@ -18,7 +18,7 @@ public class LibraryManagmentRunner extends Library {
         library.getCategories().createCategory(admin, adventuresCategoryTitle);
 
         Category adventuresCategory = library.categories.findOne(null, adventuresCategoryTitle);
-        library.authors.createAuthor(admin, adventuresCategoryTitle);
+        library.authors.createAuthor(admin, Roaling);
 
         Author author = library.getAuthors().findOne(null, Roaling);
 

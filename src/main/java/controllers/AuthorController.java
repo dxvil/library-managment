@@ -21,10 +21,13 @@ public class AuthorController implements AuthorInterface<Author> {
     public Author findOne(UUID id, String title) {
         Author foundedAuthor = null;
         for(Author author:authors) {
-            if(id == null && (author.name == title || author.name.contains(title.toLowerCase()))) {
+            boolean withTitle = title != null && title != "";
+            boolean withId = id != null;
+
+            if(!withId && (author.name == title || author.name.contains(title.toLowerCase()))) {
                 foundedAuthor = author;
                 break;
-            } else if(id != null && title == "" && author.id == id) {
+            } else if(!withTitle && withId && author.id == id) {
                 foundedAuthor = author;
                 break;
             }
@@ -33,7 +36,9 @@ public class AuthorController implements AuthorInterface<Author> {
     }
     
     public void createAuthor(User user, String name) {
-        if(user != null &&  user.role == Role.ADMIN) { 
+        boolean isAdmin = user != null &&  user.role == Role.ADMIN;
+
+        if(isAdmin) { 
             Author newAuthor = new Author(name);
 
             authors.add(newAuthor);
@@ -44,21 +49,28 @@ public class AuthorController implements AuthorInterface<Author> {
     }
 
     public void editAuthor(User user, UUID id, String name) {
-        if(user != null &&  user.role == Role.ADMIN) { 
+        boolean isAdmin = user != null &&  user.role == Role.ADMIN;
+
+        if(isAdmin) { 
             Author author = findOne(id, "");
+            
             if(author != null) {
+                System.out.println("author" + author);
                 author.editAuthor(name);
                 return;
             }
 
             System.out.println("Author is not found");
+            return;
         }
 
         System.out.println("You have no rights to edit an author.");
     }
 
     public void deleteOne(User user, UUID id, String title) {
-        if(user != null &&  user.role == Role.ADMIN) { 
+        boolean isAdmin = user != null &&  user.role == Role.ADMIN;
+
+        if(isAdmin) { 
             Author author = findOne(id, title);
 
             if(author != null) {
@@ -67,6 +79,7 @@ public class AuthorController implements AuthorInterface<Author> {
             }
 
             System.out.println("Author is not found");
+            return;
         }
         System.out.println("You have no rights to delete an author.");
     }
