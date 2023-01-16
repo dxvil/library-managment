@@ -85,7 +85,7 @@ public class Library {
         this.checkoutJournal = checkoutJournal;
     }
 
-    public void welcome() {
+    public void welcomeToTheLibrary() {
         System.out.println("Welcome to the library");
         System.out.println("Look at our categories: " + categoriesList.toString());
         System.out.println("Look at our books in stock: " + booksList.toString());
@@ -110,7 +110,7 @@ public class Library {
             borrowedBooks.remove(user.id);
             
             if(foundedCheckout != null) {
-                foundedCheckout.changeStatus(true);
+                foundedCheckout.changeCheckoutStatus(true);
             }
         }
         System.out.println("Please, specify a user and a book to back a book to the library.");

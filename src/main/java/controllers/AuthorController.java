@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import interfaces.AuthorInterface;
-import interfaces.LibraryInterface;
 import models.Author;
 import models.Role;
 import models.User;
@@ -19,7 +18,7 @@ public class AuthorController implements AuthorInterface<Author> {
         authors = newAuthorsList;
     } 
 
-    public Author find(UUID id, String title) {
+    public Author findOne(UUID id, String title) {
         Author foundedAuthor = null;
         for(Author author:authors) {
             if(id == null && (author.name == title || author.name.contains(title.toLowerCase()))) {
@@ -33,7 +32,7 @@ public class AuthorController implements AuthorInterface<Author> {
         return foundedAuthor;
     }
     
-    public void create(User user, String name) {
+    public void createAuthor(User user, String name) {
         if(user != null &&  user.role == Role.ADMIN) { 
             Author newAuthor = new Author(name);
 
@@ -44,9 +43,9 @@ public class AuthorController implements AuthorInterface<Author> {
         System.out.println("You have no rights to create a new author.");
     }
 
-    public void edit(User user, UUID id, String name) {
+    public void editAuthor(User user, UUID id, String name) {
         if(user != null &&  user.role == Role.ADMIN) { 
-            Author author = find(id, "");
+            Author author = findOne(id, "");
             if(author != null) {
                 author.editAuthor(name);
                 return;
@@ -58,9 +57,9 @@ public class AuthorController implements AuthorInterface<Author> {
         System.out.println("You have no rights to edit an author.");
     }
 
-    public void delete(User user, UUID id, String title) {
+    public void deleteOne(User user, UUID id, String title) {
         if(user != null &&  user.role == Role.ADMIN) { 
-            Author author = find(id, title);
+            Author author = findOne(id, title);
 
             if(author != null) {
                 authors.remove(author);

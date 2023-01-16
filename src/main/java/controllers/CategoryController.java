@@ -18,7 +18,7 @@ public class CategoryController implements LibraryInterface<Category> {
         this.categories = newCategoriesList;
     }
 
-    public Category find(UUID id, String title) {
+    public Category findOne(UUID id, String title) {
         Category foundedCategory = null;
             for(Category category:categories) {
                 if(id != null && id == category.id) {
@@ -32,7 +32,7 @@ public class CategoryController implements LibraryInterface<Category> {
         return foundedCategory;
     }
 
-    public void create(User user, String name) {
+    public void createCategory(User user, String name) {
         if(user != null && user.role == Role.ADMIN) {
             Category category = new Category(name);
             
@@ -45,9 +45,9 @@ public class CategoryController implements LibraryInterface<Category> {
         System.out.println("You have no rights to create a new category.");
     }
 
-    public void edit(User user, String name, UUID id) {
+    public void editCategory(User user, String name, UUID id) {
         if(user != null &&  user.role == Role.ADMIN && id != null) {
-            Category category = find(id, "");
+            Category category = findOne(id, "");
             if(category != null) {
                 category.changeCategory(name);
                 return;
@@ -57,9 +57,9 @@ public class CategoryController implements LibraryInterface<Category> {
         System.out.println("You have no rights to edit a category.");
     }
 
-    public void delete(User user, UUID id, String title) {
+    public void deleteOne(User user, UUID id, String title) {
         if(user != null &&  user.role == Role.ADMIN) {
-            Category category = find(id, title);
+            Category category = findOne(id, title);
             if(category != null) {
                 categories.remove(category);
                 return;

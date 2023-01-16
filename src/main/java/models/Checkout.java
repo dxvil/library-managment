@@ -74,7 +74,7 @@ public class Checkout {
         this.isReturned = isReturned;
     }
 
-    public void changeStatus(boolean isReturned) {
+    public void changeCheckoutStatus(boolean isReturned) {
         setIsReturned(isReturned);
     }
 }

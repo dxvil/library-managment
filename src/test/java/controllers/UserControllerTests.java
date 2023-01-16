@@ -37,7 +37,7 @@ public class UserControllerTests extends UserController{
     @Order(1)
     @DisplayName("Create a new user with admin rights")
     void createUserWithAdminRights() {
-        User adminUser = userController.create("Nick", Role.ADMIN);
+        User adminUser = userController.createUser("Nick", Role.ADMIN);
 
         assertEquals(Role.ADMIN, adminUser.role);
     }
@@ -46,7 +46,7 @@ public class UserControllerTests extends UserController{
     @Order(2)
     @DisplayName("Create a new user with user rights")
     void createUserWithUserRights() {
-        User user = userController.create("Nick", Role.USER);
+        User user = userController.createUser("Nick", Role.USER);
 
         assertEquals(Role.USER, user.role);
     }
@@ -55,8 +55,8 @@ public class UserControllerTests extends UserController{
     @Order(3)
     @DisplayName("Create a new user with the same name")
     void createUserWithTheSameUserName() {
-        userController.create("Nick", Role.USER);
-        User user2 = userController.create("Nick", Role.USER);
+        userController.createUser("Nick", Role.USER);
+        User user2 = userController.createUser("Nick", Role.USER);
 
 
         assertNull(user2);
@@ -69,9 +69,9 @@ public class UserControllerTests extends UserController{
     @DisplayName("Find a user")
     void findUser() {
         String username = "Nick";
-        userController.create(username, Role.USER);
+        userController.createUser(username, Role.USER);
 
-        User user = userController.find(username);
+        User user = userController.findOne(username);
 
         assertNotNull(user);
         assertEquals(username, user.name);
@@ -83,7 +83,7 @@ public class UserControllerTests extends UserController{
     void findNonExistUser() {
         String username = "bob";
 
-        User user = userController.find(username);
+        User user = userController.findOne(username);
 
         assertNull(user);
     }

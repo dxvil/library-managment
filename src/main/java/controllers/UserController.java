@@ -15,9 +15,9 @@ public class UserController {
         this.users = newUsersList;
     }
 
-    public User create(String name, Role role) {
+    public User createUser(String name, Role role) {
         User user = null;
-        User userExist = find(name);
+        User userExist = findOne(name);
 
         if(userExist != null) {
             System.out.println("User with this name is already exist");
@@ -30,7 +30,7 @@ public class UserController {
         return user;
     }
 
-    public User find(String name) {
+    public User findOne(String name) {
         User foundedUser = null;
         for(User user:users) {
             if(user.name == name) {

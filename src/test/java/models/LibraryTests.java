@@ -32,8 +32,8 @@ public class LibraryTests {
     static CategoryController categoryController = new CategoryController();
 
     Library library = new Library();
-    HashMap<UUID, Checkout> borrowedBooks = library.borrowedBooks;
-    ArrayList<Checkout> checkoutJournal = library.checkoutJournal;
+    HashMap<UUID, Checkout> borrowedBooks = library.getBorrowedBooks();
+    ArrayList<Checkout> checkoutJournal = library.getCheckoutJournal();
 
     static String bookTitle = "Lord Of Rings";
 
@@ -53,17 +53,17 @@ public class LibraryTests {
     }
 
     static void setupLibrary() {
-        User admin = userController.create("admin", Role.ADMIN);
-        User user = userController.create("user", Role.USER);
+        User admin = userController.createUser("admin", Role.ADMIN);
+        User user = userController.createUser("user", Role.USER);
 
-        categoryController.create(admin, "Adventures");
-        Category category = categoryController.find(null, "Adventures");
+        categoryController.createCategory(admin, "Adventures");
+        Category category = categoryController.findOne(null, "Adventures");
 
-        authorController.create(admin, "Tolkien");
+        authorController.createAuthor(admin, "Tolkien");
 
-        Author author = authorController.find(null, "Tolkien");
+        Author author = authorController.findOne(null, "Tolkien");
 
-        bookController.create(
+        bookController.createBook(
         admin, bookTitle, "Adventure book", 
         category, author);
 
@@ -74,8 +74,8 @@ public class LibraryTests {
     @Order(1)
     @DisplayName("Borrow a book from library")
     void borrowBook() {
-        User user = userController.find("user");
-        Book book = bookController.find(null, bookTitle);
+        User user = userController.findOne("user");
+        Book book = bookController.findOne(null, bookTitle);
 
 
         library.borrowBook(user, book);
@@ -88,7 +88,7 @@ public class LibraryTests {
     @Order(2)
     @DisplayName("Borrow a book from library with some empty values")
     void borrowBookWithNonSpecifiedValues() {
-        Book book = bookController.find(null, bookTitle);
+        Book book = bookController.findOne(null, bookTitle);
 
         library.borrowBook(null, book);
 
@@ -105,8 +105,8 @@ public class LibraryTests {
         borrowBook();
         assertEquals(1, borrowedBooks.size());
 
-        User user = userController.find("user");
-        Book book = bookController.find(null, bookTitle);
+        User user = userController.findOne("user");
+        Book book = bookController.findOne(null, bookTitle);
 
         library.backBook(user, book);
 
@@ -121,7 +121,7 @@ public class LibraryTests {
         assertEquals(1, borrowedBooks.size());
 
         
-        Book book = bookController.find(null, bookTitle);
+        Book book = bookController.findOne(null, bookTitle);
 
         library.backBook(null, book);
 

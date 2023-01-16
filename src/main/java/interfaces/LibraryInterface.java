@@ -5,7 +5,7 @@ import java.util.UUID;
 import models.User;
 
 public interface  LibraryInterface<T> {
-    public void delete(User user, UUID id, String title);
+    public void deleteOne(User user, UUID id, String title);
 
-    public T find(UUID id, String title);
+    public T findOne(UUID id, String title);
 }

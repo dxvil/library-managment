@@ -20,7 +20,7 @@ public class BookController implements BookInterface<Book> {
         this.books = newBooksList;
     }
 
-    public Book find(UUID id, String title){
+    public Book findOne(UUID id, String title){
         Book foundedBook = null;
         for(Book book:books){
             if(id != null && book.id == id) {
@@ -37,9 +37,9 @@ public class BookController implements BookInterface<Book> {
         return foundedBook;
     }
     
-    public void edit(User user, UUID id, String title, String description, Category categoryId, Author author) {
+    public void editBook(User user, UUID id, String title, String description, Category categoryId, Author author) {
         if(user != null && user.role == Role.ADMIN) {
-             Book book = find(id, "");
+             Book book = findOne(id, "");
              if(book != null) {
                  book.updateBook(id, title, description, categoryId, author);
                  return;
@@ -49,9 +49,9 @@ public class BookController implements BookInterface<Book> {
         System.out.println("You have no rights to update a book.");
      }
  
-     public void delete(User user, UUID id, String title) {
+     public void deleteOne(User user, UUID id, String title) {
          if(user != null && user.role == Role.ADMIN) {
-             Book book = find(id, title);
+             Book book = findOne(id, title);
              if(book != null) {
                  books.remove(book);
                  return;
@@ -61,7 +61,7 @@ public class BookController implements BookInterface<Book> {
          System.out.println("You have no rights to delete a book.");
      }
  
-     public void create(User user, String title, String description, Category categoryId, Author author) {
+     public void createBook(User user, String title, String description, Category categoryId, Author author) {
          if(user != null &&  user.role == Role.ADMIN) {
              Book book = new Book(title, description, categoryId, author);
              books.add(book);
@@ -75,9 +75,9 @@ public class BookController implements BookInterface<Book> {
  
      public Book getBook(UUID id, String title) {
          if(id != null && (title == null || title == "")) {
-             return find(id, "");
+             return findOne(id, "");
          }
  
-         return find(null, title);
+         return findOne(null, title);
      }
 }

@@ -50,7 +50,7 @@ public class CategoryControllerTests {
     @Order(1)
     @DisplayName("Create a new category with admin rights")
     void createCategoryAsAdmin() {
-        categoryController.create(admin, categoryTitle);
+        categoryController.createCategory(admin, categoryTitle);
 
         assertEquals(1, categories.size());
     }
@@ -59,7 +59,7 @@ public class CategoryControllerTests {
     @Order(2)
     @DisplayName("Create a new category with user rights")
     void createCategoryAsUser() {
-        categoryController.create(user, categoryTitle);
+        categoryController.createCategory(user, categoryTitle);
 
         assertEquals(0, categories.size());
         assertEquals("You have no rights to create a new category.", 
@@ -72,7 +72,7 @@ public class CategoryControllerTests {
     void findCategory() {
         createCategoryAsAdmin();
 
-        Category foundedCategory = categoryController.find(null, categoryTitle);
+        Category foundedCategory = categoryController.findOne(null, categoryTitle);
 
         assertNotNull(foundedCategory);
         assertEquals(categoryTitle, foundedCategory.name);
@@ -82,7 +82,7 @@ public class CategoryControllerTests {
     @Order(4)
     @DisplayName("Find a non-exist category")
     void findNonExistCategory() {
-        Category foundedCategory = categoryController.find(null, categoryTitle);
+        Category foundedCategory = categoryController.findOne(null, categoryTitle);
 
         assertNull(foundedCategory);
         assertEquals(0, categories.size());
@@ -94,9 +94,9 @@ public class CategoryControllerTests {
     void editCategoryAsAdmin() {
         createCategoryAsAdmin();
 
-        Category foundedCategory = categoryController.find(null, categoryTitle);
+        Category foundedCategory = categoryController.findOne(null, categoryTitle);
 
-        categoryController.edit(admin, "Romance", foundedCategory.id);
+        categoryController.editCategory(admin, "Romance", foundedCategory.id);
 
         assertNotEquals(categoryTitle, foundedCategory.name);
     }
@@ -107,9 +107,9 @@ public class CategoryControllerTests {
     void editCategoryAsUser() {
         createCategoryAsAdmin();
 
-        Category foundedCategory = categoryController.find(null, categoryTitle);
+        Category foundedCategory = categoryController.findOne(null, categoryTitle);
 
-        categoryController.edit(user, "Romance", foundedCategory.id);
+        categoryController.editCategory(user, "Romance", foundedCategory.id);
 
         assertEquals(categoryTitle, foundedCategory.name);
         assertEquals("You have no rights to edit a category.", 
@@ -122,9 +122,9 @@ public class CategoryControllerTests {
     void deleteCategoryAsUser() {
         createCategoryAsAdmin();
 
-        Category foundedCategory = categoryController.find(null, categoryTitle);
+        Category foundedCategory = categoryController.findOne(null, categoryTitle);
 
-        categoryController.delete(user, foundedCategory.id, foundedCategory.name);
+        categoryController.deleteOne(user, foundedCategory.id, foundedCategory.name);
 
 
         assertEquals(1, categories.size());
@@ -138,9 +138,9 @@ public class CategoryControllerTests {
     void deleteCategoryAsAdmin() {
         createCategoryAsAdmin();
 
-        Category foundedCategory = categoryController.find(null, categoryTitle);
+        Category foundedCategory = categoryController.findOne(null, categoryTitle);
 
-        categoryController.delete(admin, foundedCategory.id, foundedCategory.name);
+        categoryController.deleteOne(admin, foundedCategory.id, foundedCategory.name);
 
 
         assertEquals(0, categories.size());
